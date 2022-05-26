@@ -1,0 +1,31 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+{% for messages in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{messages}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+{% if port_name %}
+        <h1>Airport {{port_name}} added successfully.</h1>
+
+{% else %}
+    <h1>Add an airport:</h1>
+    <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag()}}
+            <h5>Airport Name: </h5>
+            {{ form.port_name(class="form-control") }}
+            <br/>
+            <h5>City:</h5>
+            {{ form.city(class="form-control") }}
+            <br/>
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+{% endif %}        
+{% endblock %}

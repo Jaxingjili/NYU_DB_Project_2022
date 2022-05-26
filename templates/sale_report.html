@@ -1,0 +1,275 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+
+{% if data3 %}
+        <h1>Date Filtered</h1>
+        <br/>
+        <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag() }}
+            <h5>Date From </h5>
+            {{ form.s_date(class="form-control") }}
+            <br/>
+            <h5>To </h5>
+            {{ form.e_date(class="form-control") }}
+            <br/>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+        <h5>Total amount of ticket sold in the date reange is {{data3[0].count}}</h5>
+
+        </div>
+
+        <br/>
+        <div style="width:33%; float:left; font-family:Avenir">
+            <h2 align="center">Monthly Sales</h2>
+            <table class="table table-hover table-bordered table-striped" id="datatable" align="center" border="1" bordercolor=black  width=60% cellpadding="9px" cellspacing="0px" frame=void rules="all"> 
+                <tr>
+                    <td >Month</td>
+                    <td >Number of Tickets Sold</td>
+                </tr>
+                {% for d in data4 %}
+                <tr>
+                    <td >{{d.month}}</td>
+                    <td >{{d.count}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <br>
+        </div>
+
+        <div style="width:33%; float:left; font-family:Avenir">
+                <h2 align="center">Revenue of Past Month</h2>
+                <table class="table table-hover table-bordered table-striped" id="datatable2" align="center" border="1" bordercolor=black  width=60% cellpadding="9px" cellspacing="0px" frame=void rules="all"
+                        > <!---style="visibility:hidden"-->
+                        <th>Revenue Type</th>
+                        <th>Sum</th>
+                        <tr align="center">
+                            <td>Direct Revenue</td>
+                            <td >{{data5[0].direct_revenue}}</td>
+                        </tr>
+                        <tr align="center">
+                            <td>Indirect Revenue</td>
+                            <td >{{data5[0].indirect_revenue}}</td>
+                        </tr>        
+                </table>
+                <br>
+            <br>
+        </div>
+
+        <div style="width:33%; float:left; font-family:Avenir">
+                <h2 align="center">Revenue Report of Past Year</h2>
+                <table class="table table-hover table-bordered table-striped" id="datatable3" align="center" border="1" bordercolor=black  width=60% cellpadding="9px" cellspacing="0px" frame=void rules="all"
+                        > <!---style="visibility:hidden"-->
+                    <th>Revenue Type</th>
+                    <th>Sum</th>
+                    <tr align="center">
+                        <td>Direct Revenue</td>
+                        <td >{{data6[0].direct_revenue}}</td>
+                    </tr>
+                    <tr align="center">
+                        <td>Indirect Revenue</td>
+                        <td >{{data6[0].indirect_revenue}}</td>
+                    </tr>
+                </table>
+                <br>
+            <br>
+        </div>
+        </div>
+
+        <div style="width:100%; float:left; font-family:Avenir">
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container" style="width:30%; float:left; margin:20px"></div>
+            <script>
+                var chart = Highcharts.chart('container', {
+                    data: {table: 'datatable'},
+                    chart: {type: 'column'},
+                    title: {text: 'Monthly Sales'},
+                    yAxis: {
+                        allowDecimals: false,
+                        title: {text: '', rotation: 0}
+                            },
+                        tooltip: {formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                            this.point.y + '#' + this.point.name.toLowerCase();}
+                                }
+                        });
+            </script>
+
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container2" style="width:30%; float:left; margin:20px"></div>
+            <script>
+                var chart = Highcharts.chart('container2', {
+                    data: {table: 'datatable2'},
+                    chart: {type: 'pie'},
+                    title: {text: ' Revenue Report of Past Month'},
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'},
+                    plotOptions: {
+                        pie: {allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {enabled: false},
+                            showInLegend: true}
+                        },
+                    series: [{
+                    colorByPoint: true,
+                    data: {table: 'datatable2'}}]
+                    });
+            </script>
+
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container3" style="width:30%; float:right; margin:30px"></div>
+            <script>
+                var chart = Highcharts.chart('container3', {
+                    data: {table: 'datatable3'},
+                    chart: {type: 'pie'},
+                    title: {text: ' Revenue Report of Past Year'},
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'},
+                    plotOptions: {
+                        pie: {allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {enabled: false},
+                            showInLegend: true}
+                        },
+                    series: [{
+                    colorByPoint: true,
+                    data: {table: 'datatable2'}}]
+                    });
+            </script>
+        </div>
+
+
+{% else %}
+        <h1>Filter the date range</h1>
+        <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag() }}
+            <h5>Date From </h5>
+            {{ form.s_date(class="form-control") }}
+            <br/>
+            <h5>To </h5>
+            {{ form.e_date(class="form-control") }}
+            <br/>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+    <h5>By defalt, total amount of ticket sold last year is {{data1[0].count}}</h5>
+        <br/>
+        <div style="width:33%; float:left; font-family:Avenir">
+            <h2 align="center">Monthly Sales</h2>
+            <table class="table table-hover table-bordered table-striped" id="datatable" align="center" border="1" bordercolor=black  width=60% cellpadding="9px" cellspacing="0px" frame=void rules="all"> 
+                <tr>
+                    <td >Month</td>
+                    <td >Number of Tickets Sold</td>
+                </tr>
+                {% for d in data4 %}
+                <tr>
+                    <td >{{d.month}}</td>
+                    <td >{{d.count}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <br>
+        </div>
+    
+        <div style="width:33%; float:left; font-family:Avenir">
+                <h2 align="center">Revenue of Past Month</h2>
+                <table class="table table-hover table-bordered table-striped" id="datatable2" align="center" border="1" bordercolor=black  width=60% cellpadding="9px" cellspacing="0px" frame=void rules="all"
+                        > <!---style="visibility:hidden"-->
+                        <th>Revenue Type</th>
+                        <th>Sum</th>
+                        <tr align="center">
+                            <td>Direct Revenue</td>
+                            <td >{{data5[0].direct_revenue}}</td>
+                        </tr>
+                        <tr align="center">
+                            <td>Indirect Revenue</td>
+                            <td >{{data5[0].indirect_revenue}}</td>
+                        </tr>        
+                </table>
+                <br>
+            <br>
+        </div>
+
+    
+        <div style="width:33%; float:left; font-family:Avenir">
+                <h2 align="center">Revenue Report of Past Year</h2>
+                <table class="table table-hover table-bordered table-striped" id="datatable3" align="center" border="1" bordercolor=black  width=60% cellpadding="9px" cellspacing="0px" frame=void rules="all"
+                        > <!---style="visibility:hidden"-->
+                    <th>Revenue Type</th>
+                    <th>Sum</th>
+                    <tr align="center">
+                        <td>Direct Revenue</td>
+                        <td >{{data6[0].direct_revenue}}</td>
+                    </tr>
+                    <tr align="center">
+                        <td>Indirect Revenue</td>
+                        <td >{{data6[0].indirect_revenue}}</td>
+                    </tr>
+                </table>
+                <br>
+            <br>
+        </div>
+        </div>
+    
+        <div style="width:100%; float:left; font-family:Avenir">
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container" style="width:30%; float:left; margin:20px"></div>
+            <script>
+                var chart = Highcharts.chart('container', {
+                    data: {table: 'datatable'},
+                    chart: {type: 'column'},
+                    title: {text: 'Monthly Sales'},
+                    yAxis: {
+                        allowDecimals: false,
+                        title: {text: '', rotation: 0}
+                            },
+                        tooltip: {formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                            this.point.y + '#' + this.point.name.toLowerCase();}
+                                }
+                        });
+            </script>
+    
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container2" style="width:30%; float:left; margin:20px"></div>
+            <script>
+                var chart = Highcharts.chart('container2', {
+                    data: {table: 'datatable2'},
+                    chart: {type: 'pie'},
+                    title: {text: ' Revenue Report of Past Month'},
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'},
+                    plotOptions: {
+                        pie: {allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {enabled: false},
+                            showInLegend: true}
+                        },
+                    series: [{
+                    colorByPoint: true,
+                    data: {table: 'datatable2'}}]
+                    });
+            </script>
+    
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container3" style="width:30%; float:right; margin:30px"></div>
+            <script>
+                var chart = Highcharts.chart('container3', {
+                    data: {table: 'datatable3'},
+                    chart: {type: 'pie'},
+                    title: {text: ' Revenue Report of Past Year'},
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'},
+                    plotOptions: {
+                        pie: {allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {enabled: false},
+                            showInLegend: true}
+                        },
+                    series: [{
+                    colorByPoint: true,
+                    data: {table: 'datatable2'}}]
+                    });
+            </script>
+        </div>
+    {% endif %}        
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base_booking_agent.html' %}
+
+{% block content %}
+
+{% if d_city %}
+        <h1>Search Result for Upcoming Flights:</h1>
+        <h3> Flights: {{d_city}}  --->  {{a_city}}</h3>
+        {% if s_date != 'all' and s_date != e_date %}
+        <h3> Date: {{s_date}}  --  {{e_date}}</h3>
+        {% else %}
+        <h3> Date: {{s_date}}</h3>
+        {% endif %}
+
+        {% if data_got != '' %}
+        <h5>Click filght number to purchase ticket ! </h5>
+        <table class="table table-hover table-bordered table-striped">
+            <tr><td>Airline name</td><td>Flight Number</td>
+                <td>Depart Airport</td><td>Arrive Airport</td>
+                <td>Depart Time</td><td>Arrive Time</td><td>Ticket Price</td>
+            </tr>
+            {% for d in data_got %}
+                <tr>
+                <td>{{ d.airline_name }}</td><td><a href = "{{ url_for('booking_agent_purchase', flight_num = d.flight_num) }}">{{d.flight_num}}</a></td>
+                <td>{{ d.departure_airport }}</td><td>{{d.arrival_airport}}</td>
+                <td>{{ d.departure_time }}</td><td>{{ d.arrival_time }}</td>  
+                <td>{{ d.price }}</td>       
+                </tr>
+            {% endfor %}
+        </table>    
+        {% endif %}
+
+{% else %}
+        <h1>Search Upcoming Flights by City and Date</h1>
+        <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag() }}
+
+            <h5>City of Departure :</h5>
+            {{ form.d_city(class="form-control") }}
+            <br/>
+            <h5>City of Arrival :</h5>
+            {{ form.a_city(class="form-control") }}
+            <br/>
+            <h5>Date From (yyyy-mm-dd ,or enter "all" to search for all date)</h5>
+            {{ form.s_date(class="form-control") }}
+            <br/>
+            <h5>To (same as start date to select 1 day) </h5>
+            {{ form.e_date(class="form-control") }}
+            <br/>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+        <br/>
+        <h5>Click filght number to purchase ticket ! </h5>
+        {% if data_got != '' %}
+        <table class="table table-hover table-bordered table-striped">
+        <tr><td>Airline name</td><td>Flight Number</td>
+            <td>Depart Airport</td><td>Arrive Airport</td>
+            <td>Depart Time</td><td>Arrive Time</td><td>Ticket Price</td>
+        </tr>
+        {% for d in data_got %}
+            <tr>
+            <td>{{ d.airline_name }}</td><td><a href = "{{ url_for('booking_agent_purchase', flight_num = d.flight_num) }}">{{d.flight_num}}</a></td>
+            <td>{{ d.departure_airport }}</td><td>{{d.arrival_airport}}</td>
+            <td>{{ d.departure_time }}</td><td>{{ d.arrival_time }}</td>  
+            <td>{{ d.price }}</td>          
+            </tr>
+        {% endfor %}
+        </table>
+        {% endif %}
+{% endif %}        
+{% endblock %}

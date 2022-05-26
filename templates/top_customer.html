@@ -1,0 +1,73 @@
+{% extends 'base_booking_agent.html' %}
+
+{% block content %}
+    {% for messages in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{messages}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <h1>Top 5 Customers For Ticket Count:</h1>
+    <h5> By defalt, the date range is past 6 months: </h5>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+    <table id = "6m_table" class="table table-hover table-bordered table-striped">
+        <tr><td>Customer Email</td><td>Ticket Count</td>
+        </tr>
+        {% for d in data1 %}
+            <tr>
+            <td>{{ d.customer_email }}</td><td>{{ d.count }}</td>  
+            </tr>
+        {% endfor %}
+    </table> 
+    </div>
+    <div class="shadow p-3 mb-5 bg-body rounded" id="container" style="width:100%; float:left; margin-left:0px"></div>   
+    <script>
+        var chart = Highcharts.chart('container', {
+            data: {table: '6m_table'},
+            chart: {type: 'column'},
+            title: {text: 'Top 5 Customers Based on number of Tickets Bought'},
+            yAxis: {
+                allowDecimals: false,
+                title: {text: '', rotation: 0}
+                    },
+                tooltip: {formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + '#' + this.point.name.toLowerCase();}
+                        }
+                });
+    </script>
+
+    <br/>
+    <br/>
+    <h1>Top 5 Customers For Commission Amount:</h1>
+    <h5> By defalt, the date range is past 1 year: </h5>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+    <table id = "1y_table" class="table table-hover table-bordered table-striped">
+        <tr><td>Customer Email</td><td>Commission Amount</td>
+        </tr>
+        {% for d in data2 %}
+            <tr>
+            <td>{{ d.customer_email }}</td><td>{{ d.total }}</td>  
+            </tr>
+        {% endfor %}
+    </table> 
+    </div>
+    <div class="shadow p-3 mb-5 bg-body rounded" id="container2" style="width:100%; float:left; margin-left:0px"></div>   
+    <script>
+        var chart = Highcharts.chart('container2', {
+            data: {table: '1y_table'},
+            chart: {type: 'column'},
+            title: {text: 'Top 5 Customers Based on number of Tickets Bought'},
+            yAxis: {
+                allowDecimals: false,
+                title: {text: '', rotation: 0}
+                    },
+                tooltip: {formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + '#' + this.point.name.toLowerCase();}
+                        }
+                });
+    </script>
+    </div>
+
+{% endblock %}

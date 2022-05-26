@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for messages in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{messages}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+    <h1>Airline Staff Login:</h1>
+    <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+    <form method = "POST">
+        {{ form.hidden_tag() }}
+
+        <h4>User Name:  </h4>
+        {{ form.user_name(class="form-control") }}
+        <br/>        
+
+        <h4>Password:  </h4>
+        {{ form.password(class="form-control") }}
+        <br/>
+
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+    </div>
+{% endblock %}

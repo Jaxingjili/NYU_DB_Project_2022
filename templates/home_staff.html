@@ -1,0 +1,45 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+{% for messages in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{messages}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<style>
+    body {
+      background-image: url('static/images/s_bg.jpg');
+    }
+    h3 {
+    color : #000080;
+    }
+    h1 {
+    color : #000080;
+    }
+    h6 {
+    color : #000080;
+    }
+
+</style> 
+<h1>Welcome, {{first_name}} at {{line_name}}</h1>
+<h3>Here are the upcoming flight for {{line_name}} in next 30 days :</h3>
+<h6>You can look for more information from the get infor link in above bar</h6>
+<div class="shadow p-3 mb-5 bg-body rounded">
+    <table class="table table-hover table-bordered table-striped">
+        <tr><td>Airline name</td><td>Flight Number</td>
+            <td>Depart Airport</td><td>Arrive Airport</td>
+            <td>Depart Time</td><td>Arrive Time</td><td>Ticket Price</td>
+        </tr>
+        {% for d in data_got %}
+            <tr>
+            <td>{{ d.airline_name }}</td><td>{{d.flight_num}}</td>
+            <td>{{ d.departure_airport }}</td><td>{{d.arrival_airport}}</td>
+            <td>{{ d.departure_time }}</td><td>{{ d.arrival_time }}</td>  
+            <td>{{ d.price }}</td>       
+            </tr>
+        {% endfor %}
+    </table> 
+    </div>   
+    
+{% endblock %}

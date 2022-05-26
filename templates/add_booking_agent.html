@@ -1,0 +1,28 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+{% for messages in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{messages}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+{% if email %}
+        <h1>Booking Agent with email  {{email}} added successfully.</h1>
+
+{% else %}
+    <h1>Add a booking agent:</h1>
+    <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag()}}
+            <h5>Email:</h5>
+            {{ form.email(class="form-control") }}
+            <br/>
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+{% endif %}        
+{% endblock %}

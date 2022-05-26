@@ -1,0 +1,33 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+
+    <h1>Top Destinations</h1>
+
+    <h5>In 3 Months</h5>
+    <table class="table table-hover table-bordered table-striped">
+        <tr><td>Airport</td><td>Destination City</td>
+            <td>Trip Count</td>
+        </tr>
+        {% for d in data1 %}
+            <tr>
+            <td>{{ d.airport }}</td><td>{{d.city}}</td>
+            <td>{{ d.num }}</td>          
+            </tr>
+        {% endfor %})
+    </table>
+</br>
+    <h5>In 1 Year </h5>
+    <table class="table table-hover table-bordered table-striped">
+        <tr><td>Airport</td><td>Destination City</td>
+            <td>Trip Count</td>
+        </tr>
+        {% for d in data2 %}
+            <tr>
+            <td>{{ d.airport }}</td><td>{{d.city}}</td>
+            <td>{{ d.num }}</td>          
+            </tr>
+        {% endfor %})
+    </table>
+
+{% endblock %}

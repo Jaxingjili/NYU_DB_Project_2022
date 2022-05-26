@@ -1,0 +1,20 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+
+    <h1>Customer Infor for Flight: {{flight_num}}</h1>
+    {% if data_got != '' %}
+    <table class="table table-hover table-bordered table-striped">
+        <tr><td>Name</td><td>Email</td><td>Phone Number</td><td>Flight Number</td>
+            <td>Ticket ID</td><td>Airline</td>
+        </tr>
+        {% for d in data_got %}
+            <tr>
+            <td>{{ d.name }}</td><td>{{ d.email }}</td><td>{{ d.phone_number }}</td><td>{{d.flight_num}}</td>
+            <td>{{ d.ticket_id }}</td><td>{{d.airline_name}}</td>
+            </tr>
+        {% endfor %}
+    </table>    
+    {% endif %}
+
+{% endblock %}

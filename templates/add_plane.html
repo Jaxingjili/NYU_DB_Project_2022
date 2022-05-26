@@ -1,0 +1,31 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+{% for messages in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{messages}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+{% if flight_num %}
+        <h1>Airplane {{flight_num}} added successfully.</h1>
+
+{% else %}
+    <h1>Add a plane:</h1>
+    <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag()}}
+            <h5>Airplane ID: </h5>
+            {{ form.plane_id(class="form-control") }}
+            <br/>
+            <h5>Seat number:</h5>
+            {{ form.seat(class="form-control") }}
+            <br/>
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+{% endif %}        
+{% endblock %}

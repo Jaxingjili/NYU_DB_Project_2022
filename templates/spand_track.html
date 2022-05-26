@@ -1,0 +1,102 @@
+{% extends 'base_customer.html' %}
+
+{% block content %}
+    {% for messages in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{messages}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <h1>Track Your Spending</h1>
+    {% if s_date %}
+        <div class="shadow p-3 mb-5 bg-body rounded">
+            <form method = "POST">
+                {{ form.hidden_tag() }}
+                <h5>Date From (yyyy-mm-dd ,or enter "all" to search for all date)</h5>
+                {{ form.s_date(class="form-control") }}
+                <br/>
+                <h5>To (same as start date to select 1 day) </h5>
+                {{ form.e_date(class="form-control") }}
+                <br/>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+        {% if defalt == True %}
+        <h5> By defalt, the date range is past 6 months: </h5>
+        {% else %}
+        <h5> Here is track for the specified date randge: </h5>
+        {% endif %}
+        <h5> The total spand is : {{data_got_totol.money}}</h5>
+        <table id = "defalt_table" class="table table-hover table-bordered table-striped">
+            <tr><td>Month</td><td>Total Spending</td>
+            </tr>
+            {% for d in data_got_month %}
+                <tr>
+                <td>{{ d.month }}</td><td>{{ d.money }}</td>  
+                </tr>
+            {% endfor %}
+        </table> 
+        <br/>
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container" style="width:100%; float:left; margin-left:0px"></div>            <script>
+                var chart = Highcharts.chart('container', {
+                    data: {table: 'defalt_table'},
+                    chart: {type: 'column'},
+                    title: {text: 'Monthly Spending in Past 6 Months'},
+                    yAxis: {
+                        allowDecimals: false,
+                        title: {text: '', rotation: 0}
+                            },
+                        tooltip: {formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                            this.point.y + '#' + this.point.name.toLowerCase();}
+                                }
+                        });
+                </script>
+
+    {% else %}
+        <div class="shadow p-3 mb-5 bg-body rounded">
+            <form method = "POST">
+                {{ form.hidden_tag() }}
+                <h5>Date From (yyyy-mm-dd ,or enter "all" to search for all date)</h5>
+                {{ form.s_date(class="form-control") }}
+                <br/>
+                <h5>To (same as start date to select 1 day) </h5>
+                {{ form.e_date(class="form-control") }}
+                <br/>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+        {% if defalt == True %}
+        <h5> By defalt, the date range is past 6 months: </h5>
+        {% else %}
+        <h5> Here is track for the specified date randge: </h5>
+        {% endif %}
+        <h5> The total spand is : {{data_got_totol.money}}</h5>
+        <table id = "defalt_table" class="table table-hover table-bordered table-striped">
+            <tr><td>Month</td><td>Total Spending</td>
+            </tr>
+            {% for d in data_got_month %}
+                <tr>
+                <td>{{ d.month }}</td><td>{{ d.money }}</td>  
+                </tr>
+            {% endfor %}
+        </table> 
+        <br/>
+        <div class="shadow p-3 mb-5 bg-body rounded" id="container" style="width:100%; float:left; margin-left:0px"></div>            <script>
+                var chart = Highcharts.chart('container', {
+                    data: {table: 'defalt_table'},
+                    chart: {type: 'column'},
+                    title: {text: 'Monthly Spending in Past 6 Months'},
+                    yAxis: {
+                        allowDecimals: false,
+                        title: {text: '', rotation: 0}
+                            },
+                        tooltip: {formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                            this.point.y + '#' + this.point.name.toLowerCase();}
+                                }
+                        });
+                </script>
+
+    {% endif %}
+{% endblock %}

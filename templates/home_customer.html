@@ -1,0 +1,65 @@
+{% extends 'base_customer.html' %}
+
+{% block content %}
+    {% for messages in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{messages}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <style>
+        body {
+          background-image: url('static/images/c_bg.jpg');
+        }
+        h3 {
+        color : white;
+        }
+        h6 {
+        color : white;
+        }
+
+    </style> 
+    <h1>Welcome, this is the customer homepage for {{user_id}}</h1>
+    <h3> You can check and filter your own flights here: </h3>
+    <div style="width:50%" class="shadow p-3 mb-5 bg-body rounded">
+    <form method = "POST">
+        {{ form.hidden_tag() }}
+
+        <h5>Airport of Departure (enter "all" to filter for all departure airport):</h5>
+        {{ form.d_port(class="form-control") }}
+        <br/>
+        <h5>Airport of Arrival (enter "all" to filter for all arrival airport):</h5>
+        {{ form.a_port(class="form-control") }}
+        <br/>
+        <h5>Date (yyyy-mm-dd ,or enter "all" to search for all date)</h5>
+        {{ form.date(class="form-control") }}
+        <br/>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+    </div>
+    {% if defalt == True %}
+    <br/>
+    <h6> By defalt, the folowing are your upoming flight: </h6>
+    {% else %}
+    <br/>
+    <h6> The result for the filter: </h6>
+    {% endif %}
+    {% if data_got != '' %}
+    <div class="shadow p-3 mb-5 bg-body rounded">
+    <table class="table table-hover table-bordered table-striped">
+        <tr><td>Airline name</td><td>Flight Number</td>
+            <td>Depart Airport</td><td>Arrive Airport</td>
+            <td>Depart Time</td><td>Arrive Time</td><td>Ticket Price</td>
+        </tr>
+        {% for d in data_got %}
+            <tr>
+            <td>{{ d.airline_name }}</td><td>{{d.flight_num}}</td>
+            <td>{{ d.departure_airport }}</td><td>{{d.arrival_airport}}</td>
+            <td>{{ d.departure_time }}</td><td>{{ d.arrival_time }}</td>  
+            <td>{{ d.price }}</td>       
+            </tr>
+        {% endfor %}
+    </table> 
+    </div>   
+    {% endif %}
+{% endblock %}

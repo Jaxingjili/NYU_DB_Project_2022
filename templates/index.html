@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for messages in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         {{messages}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+    <style>
+    body {
+      background-image: url('static/images/bg.jpg');
+    }
+    h1 {
+        color : white;
+        font-size : 60px
+    }
+    p {
+        color : white;
+        font-size : 25px
+
+    }
+    h3 {
+        color : white
+    }
+    h5 {
+        color : white
+    }
+
+    </style>
+    <h1>Airline Database System</h1>
+    <p>Final Project for NYU Databases course : CSCI-SHU-213-001 (4)</p>
+    <p>By Jax Li & Cassie Huang</p>
+    <br/>
+    <h3>Features:</h3>
+    <p>-- Error well handaled</p>
+    <p>-- Well formated and user freindly</p>
+    <h3>Reference & APIs Used:</h3>
+    <p>-- Flask</p>
+    <p>-- flask_wtf</p>
+    <p>-- wtf</p>
+    <p>-- pymysql</p>
+    <p>-- BootStrap</p>
+
+
+
+
+
+{% endblock %}

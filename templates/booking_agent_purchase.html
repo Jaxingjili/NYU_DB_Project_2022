@@ -1,0 +1,36 @@
+{% extends 'base_booking_agent.html' %}
+
+{% block content %}
+    {% for messages in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{messages}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% if ticket_count == 0 %}
+        <h1>Sorry, there is currently no ticket left for flight: {{flight_num}}</h1>
+    {% else %}
+        <h1>Purchase ticket for flight {{flight_num}}</h1>
+        <h2>Currently {{ticket_count}} ticket(s) left</h2>
+        {% if num_of_ticket %}
+            </br>
+        {% else %}
+        {% if form%}
+            <div class="shadow p-3 mb-5 bg-body rounded">
+                <form method = "POST">
+                    {{ form.hidden_tag() }}
+                    <h5>The customer's email:</h5>
+                    {{ form.customer_email(class="form-control") }}
+                    <br/>
+                    <h5>Number of tickets you're buying :</h5>
+                    {{ form.num_of_ticket(class="form-control") }}
+                    <br/>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+        {%endif%}
+    
+        {% endif %}
+
+    {% endif %}
+{% endblock %}

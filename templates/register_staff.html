@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user_name %}
+    {% if user_name == 'exist' %}
+        <h1>Oops !</h1>
+        <h4>This user name has been registered</h4>
+        <h4>Please try another one or Login</h4>
+    {% else %}
+        <h1>Welcome {{first_name}} !</h1>
+        <h4> You have successfully regeistered with user name : {{user_name}} </h4>
+        <h4> You can try login now :) </h4>
+    {% endif %}
+{% else %}
+    <h1>Airline Staff Register:</h1>
+    <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+    <form method = "POST">
+        {{ form.hidden_tag() }}
+        <h4>Airline Name: </h4>
+        {{ form.airline_name(class="form-control") }}
+        <br/>
+
+        <h4>User Name: </h4>
+        {{ form.user_name(class="form-control") }}
+        <br/>
+
+        <h4>First Name:  </h4>
+        {{ form.first_name(class="form-control") }}
+        <br/>        
+
+        <h4>Last Name:  </h4>
+        {{ form.last_name(class="form-control") }}
+        <br/>        
+
+        <h4>Birth(yyyy-mm-dd) :  </h4>
+        {{ form.birth(class="form-control") }}
+        <br/>        
+
+        <h4>Set Password:  </h4>
+        {{ form.password(class="form-control") }}
+        <br/>
+
+        <h4>Confirm Password:  </h4>
+        {{ form.confirm_password(class="form-control") }}
+        <br/>
+
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+    </div>
+{% endif %}
+{% endblock %}

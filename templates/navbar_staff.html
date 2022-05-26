@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('staff_home') }}">Airline Staff Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Get Information
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{{url_for('staff_search')}}">Flight</a></li>
+              <li><a class="dropdown-item" href="{{url_for('staff_get_booking_agent')}}">Booking Agent</a></li>
+              <li><a class="dropdown-item" href="{{url_for('staff_get_top_customer')}}"> Frequent Customer</a></li>
+              <li><a class="dropdown-item" href="{{url_for('top_destination')}}"> Top Destinations</a></li>
+              <li><a class="dropdown-item" href="{{url_for('sale_report')}}">Sale Reports</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin Operations
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{{url_for('add_flight')}}">Add Flight</a></li>
+              <li><a class="dropdown-item" href="{{url_for('add_plane')}}">Add Airplane</a></li>
+              <li><a class="dropdown-item" href="{{url_for('add_airport')}}">Add Airport </a></li>
+              <li><a class="dropdown-item" href="{{url_for('add_booking_agent')}}">Add Booking Agent</a></li>
+              <li><a class="dropdown-item" href="{{url_for('grant_permission')}}">Grant Permission</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('logout')}}">LogOut</a>
+        </li>
+
+
+        </ul>
+        <!-- <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+      </div>
+    </div>
+  </nav>

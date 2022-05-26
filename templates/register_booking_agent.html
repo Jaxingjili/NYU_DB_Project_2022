@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if email %}
+    {% if email == 'exist' %}
+        <h1>Oops !</h1>
+        <h4>This email address has been registered</h4>
+        <h4>Please try another email or Login</h4>
+    {% else %}
+        <h1>Welcome !</h1>
+        <h4> You have successfully regeistered with email : {{email}} </h4>
+        <h4> Here is your Booking Agent ID : {{ba_id}} </h4>        
+        <h4> You can try login now :) </h4>
+
+    {% endif %}
+{% else %}
+    <h1>Booking Agent Register:</h1>
+    <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag() }}
+
+            <h4>Email:  </h4>
+            {{ form.email(class="form-control") }}
+            <br/>        
+
+            <h4>Set Password:  </h4>
+            {{ form.password(class="form-control") }}
+            <br/>
+
+            <h4>Confirm Password:  </h4>
+            {{ form.confirm_password(class="form-control") }}
+            <br/>
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+{% endif %}
+{% endblock %}

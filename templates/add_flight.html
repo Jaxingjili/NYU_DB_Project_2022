@@ -1,0 +1,52 @@
+{% extends 'base_staff.html' %}
+
+{% block content %}
+{% for messages in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{messages}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+{% if flight_num %}
+        <h1>Flight {{flight_num}} added successfully.</h1>
+
+{% else %}
+    <h1>Add a flight:</h1>
+    <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form method = "POST">
+            {{ form.hidden_tag()}}
+            <h5>Flight Number:</h5>
+            {{ form.flight_num(class="form-control") }}
+            <br/>
+            <h5>Departure Airport:</h5>
+            {{ form.d_port(class="form-control") }}
+            <br/>
+            <h5>Departure Time:(example format:2022-06-01 12:00:00)</h5>
+            {{ form.d_time(class="form-control") }}
+            <br/>
+            <h5>Arrival Airport:</h5>
+            {{ form.a_port(class="form-control") }}
+            <br/>
+            <h5>Arrival Time:</h5>
+            {{ form.a_time(class="form-control") }}
+            <br/>
+            <h5>Price: </h5>
+            {{ form.price(class="form-control") }}
+            <br/>
+            <h5>Status:</h5>
+            {{ form.status(class="form-control") }}
+            <br/>
+            <h5>Airplane ID: </h5>
+            {{ form.plane_id(class="form-control") }}
+            <br/>
+            <h5>Ticket Number: </h5>
+            {{ form.ticket_num(class="form-control") }}
+            <br/>
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+{% endif %}        
+{% endblock %}
